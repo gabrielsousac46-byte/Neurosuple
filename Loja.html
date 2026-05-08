@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeuroMax — Entrar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:    #1a24e2;
+      --blue2:   #1318b0;
+      --dark:    #1a1a2e;
+      --darker:  #0f0f1a;
+      --card:    #1e1e30;
+      --border:  rgba(255,255,255,0.07);
+      --muted:   rgba(255,255,255,0.4);
+      --white:   #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--darker);
+      min-height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ===== LADO ESQUERDO ===== */
+    .left {
+      flex: 1;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(26,36,226,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,36,226,0.08) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .left::after {
+      content: '';
+      position: absolute;
+      bottom: -120px; left: -80px;
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(26,36,226,0.28) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--white);
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+    .logo span { color: var(--blue); }
+
+    .hero-text { position: relative; z-index: 1; }
+    .hero-text h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 6vw, 80px);
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: 2px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-text h1 span { color: var(--blue); }
+    .hero-text p { font-size: 15px; color: var(--muted); max-width: 320px; line-height: 1.6; }
+
+    .stats { display: flex; gap: 2rem; position: relative; z-index: 1; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: var(--white);
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .stat-num span { color: var(--blue); }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ===== LADO DIREITO ===== */
+    .right {
+      width: 440px;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .form-box { width: 100%; max-width: 360px; }
+
+    .tabs {
+      display: flex;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 2rem;
+    }
+    .tab {
+      flex: 1;
+      padding: 9px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 7px;
+      transition: all 0.25s;
+      border: none;
+      background: transparent;
+    }
+    .tab.active { background: var(--blue); color: var(--white); }
+
+    .form-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 1px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .form-sub { font-size: 13px; color: var(--muted); margin-bottom: 1.75rem; }
+
+    .field { margin-bottom: 1rem; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .field input::placeholder { color: rgba(255,255,255,0.2); }
+    .field input:focus {
+      border-color: var(--blue);
+      background: rgba(26,36,226,0.07);
+    }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 1.25rem;
+    }
+    .check-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--blue); cursor: pointer; }
+    .check-row label { font-size: 13px; color: var(--muted); cursor: pointer; }
+    .check-row a { color: var(--blue); text-decoration: none; }
+
+    .forgot {
+      display: block;
+      text-align: right;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      margin-top: -6px;
+      margin-bottom: 1.25rem;
+    }
+    .forgot:hover { color: var(--blue); }
+
+    .btn-main {
+      width: 100%;
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 13px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-main:hover { background: var(--blue2); transform: translateY(-1px); }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 1.25rem 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .msg {
+      display: none;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 7px;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .msg.erro { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: #ff7b84; }
+    .msg.sucesso { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; }
+
+    .senha-forca { display: none; margin-top: 6px; }
+    .forca-barra { height: 3px; border-radius: 3px; background: var(--border); overflow: hidden; margin-bottom: 4px; }
+    .forca-fill { height: 100%; border-radius: 3px; transition: width 0.3s, background 0.3s; width: 0%; }
+    .forca-label { font-size: 11px; color: var(--muted); }
+
+    .sucesso-panel { display: none; text-align: center; padding: 1rem 0; }
+    .sucesso-icone { font-size: 52px; margin-bottom: 1rem; animation: pop 0.4s ease; }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      80% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .sucesso-panel h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--white);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .sucesso-panel p { font-size: 14px; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .left { display: none; }
+      .right { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LADO ESQUERDO -->
+  <div class="left">
+    <div class="logo">NEURO<span>MAX</span></div>
+    <div class="hero-text">
+      <h1>LEVE SEU<br>TREINO AO<br><span>PRÓXIMO</span><br>NÍVEL</h1>
+      <p>Crie sua conta e tenha acesso aos melhores suplementos do Brasil.</p>
+    </div>
+    <div class="stats">
+      <div>
+        <div class="stat-num">5<span>K+</span></div>
+        <div class="stat-label">Clientes ativos</div>
+      </div>
+      <div>
+        <div class="stat-num">48<span>h</span></div>
+        <div class="stat-label">Entrega express</div>
+      </div>
+      <div>
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Produto original</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LADO DIREITO -->
+  <div class="right">
+    <div class="form-box">
+
+      <div class="tabs">
+        <button class="tab active" onclick="mudarAba('login')">Entrar</button>
+        <button class="tab" onclick="mudarAba('cadastro')">Criar conta</button>
+      </div>
+
+      <div class="msg" id="msg"></div>
+
+      <!-- LOGIN -->
+      <div id="formLogin">
+        <div class="form-title">BEM-VINDO DE VOLTA</div>
+        <div class="form-sub">Entre com seu e-mail e senha para continuar.</div>
+        <div class="field">
+          <label>E-mail</label>
+          <input type="email" id="loginEmail" placeholder="seu@email.com" />
+        </div>
+        <div class="field">
+          <label>Senha</label>
+          <input type="password" id="loginSenha" placeholder="••••••••" />
+        </div>
+        <a href="#" class="forgot">Esqueci minha senha</a>
+        <button class="btn-main" onclick="fazerLogin()">ENTRAR NA LOJA</button>
+        <div class="divider">ou</div>
+        <div style="text-align:center; font-size:13px; color:var(--muted)">
+          Não tem conta?
+          <a href="#" style="color:var(--blue); text-decoration:none; font-weight:500" onclick="mudarAba('cadastro')">Cadastre-se grátis</a>
+        </div>
+      </div>
+
+      <!-- CADASTRO -->
+      <div id="formCadastro" style="display:none">
+        <div class="form-title">CRIAR CONTA</div>
+        <div class="form-sub">Preencha seus dados para se cadastrar.</div>
+        <div class="field">
+          <label>Nome completo</label>
+          <input type="text" id="cadNome" placeholder="Seu nome" />
+        </div>
+        <div class="field">
+          <label>E-mail</label>
+          <input type="email" id="cadEmail" placeholder="seu@email.com" />
+        </div>
+        <div class="field">
+          <label>Senha</label>
+          <input type="password" id="cadSenha" placeholder="Mínimo 6 caracteres" oninput="verificarForca(this.value)" />
+          <div class="senha-forca" id="senhaForca">
+            <div class="forca-barra"><div class="forca-fill" id="forcaFill"></div></div>
+            <div class="forca-label" id="forcaLabel"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Confirmar senha</label>
+          <input type="password" id="cadConfirma" placeholder="Repita a senha" />
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="termos" />
+          <label for="termos">Li e aceito os <a href="#">Termos de Uso</a></label>
+        </div>
+        <button class="btn-main" onclick="fazerCadastro()">CRIAR MINHA CONTA</button>
+        <div class="divider">ou</div>
+        <div style="text-align:center; font-size:13px; color:var(--muted)">
+          Já tem conta?
+          <a href="#" style="color:var(--blue); text-decoration:none; font-weight:500" onclick="mudarAba('login')">Entrar</a>
+        </div>
+      </div>
+
+      <!-- SUCESSO -->
+      <div class="sucesso-panel" id="painelSucesso">
+        <div class="sucesso-icone">💪</div>
+        <h2 id="sucessoTitulo">TUDO CERTO!</h2>
+        <p id="sucessoTexto">Redirecionando para a loja...</p>
+        <button class="btn-main" onclick="window.location.href='pagina.html'">IR PARA A LOJA</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function getUsuarios() {
+      return JSON.parse(localStorage.getItem('neuromax_usuarios') || '[]');
+    }
+    function salvarUsuarios(lista) {
+      localStorage.setItem('neuromax_usuarios', JSON.stringify(lista));
+    }
+
+    window.addEventListener('load', () => {
+      if (localStorage.getItem('neuromax_logado')) irParaLoja();
+    });
+
+    function mudarAba(aba) {
+      document.querySelectorAll('.tab').forEach((t, i) => {
+        t.classList.toggle('active', (i===0 && aba==='login') || (i===1 && aba==='cadastro'));
+      });
+      document.getElementById('formLogin').style.display    = aba==='login'    ? 'block' : 'none';
+      document.getElementById('formCadastro').style.display = aba==='cadastro' ? 'block' : 'none';
+      document.getElementById('painelSucesso').style.display = 'none';
+      esconderMsg();
+    }
+
+    function mostrarMsg(texto, tipo) {
+      const el = document.getElementById('msg');
+      el.textContent = texto; el.className = 'msg ' + tipo; el.style.display = 'block';
+    }
+    function esconderMsg() { document.getElementById('msg').style.display = 'none'; }
+
+    function verificarForca(senha) {
+      const forca = document.getElementById('senhaForca');
+      const fill  = document.getElementById('forcaFill');
+      const label = document.getElementById('forcaLabel');
+      if (!senha) { forca.style.display = 'none'; return; }
+      forca.style.display = 'block';
+      let p = 0;
+      if (senha.length >= 6)  p++;
+      if (senha.length >= 10) p++;
+      if (/[A-Z]/.test(senha)) p++;
+      if (/[0-9]/.test(senha)) p++;
+      if (/[^a-zA-Z0-9]/.test(senha)) p++;
+      const n = [
+        { pct:'20%', cor:'#ef4444', txt:'Muito fraca' },
+        { pct:'40%', cor:'#f97316', txt:'Fraca' },
+        { pct:'60%', cor:'#eab308', txt:'Média' },
+        { pct:'80%', cor:'#22c55e', txt:'Forte' },
+        { pct:'100%',cor:'#16a34a', txt:'Muito forte' },
+      ][Math.min(p-1, 4)];
+      fill.style.width = n.pct; fill.style.background = n.cor;
+      label.textContent = n.txt; label.style.color = n.cor;
+    }
+
+    function fazerLogin() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const senha = document.getElementById('loginSenha').value;
+      if (!email || !senha) { mostrarMsg('⚠️ Preencha todos os campos.', 'erro'); return; }
+      const user = getUsuarios().find(u => u.email === email && u.senha === senha);
+      if (!user) { mostrarMsg('❌ E-mail ou senha incorretos.', 'erro'); return; }
+      localStorage.setItem('neuromax_logado', JSON.stringify({ nome: user.nome, email: user.email }));
+      document.getElementById('formLogin').style.display = 'none';
+      document.getElementById('painelSucesso').style.display = 'block';
+      document.getElementById('sucessoTitulo').textContent = 'OLÁ, ' + user.nome.split(' ')[0].toUpperCase() + '!';
+      document.getElementById('sucessoTexto').textContent = 'Login realizado! Entrando na loja...';
+      setTimeout(() => window.location.href = 'Loja.html', 1800);
+    }
+
+    function fazerCadastro() {
+      const nome     = document.getElementById('cadNome').value.trim();
+      const email    = document.getElementById('cadEmail').value.trim();
+      const senha    = document.getElementById('cadSenha').value;
+      const confirma = document.getElementById('cadConfirma').value;
+      const termos   = document.getElementById('termos').checked;
+      if (!nome || !email || !senha || !confirma) { mostrarMsg('⚠️ Preencha todos os campos.', 'erro'); return; }
+      if (!email.includes('@') || !email.includes('.')) { mostrarMsg('⚠️ E-mail inválido.', 'erro'); return; }
+      if (senha.length < 6) { mostrarMsg('⚠️ Senha muito curta.', 'erro'); return; }
+      if (senha !== confirma) { mostrarMsg('⚠️ As senhas não coincidem.', 'erro'); return; }
+      if (!termos) { mostrarMsg('⚠️ Aceite os Termos de Uso.', 'erro'); return; }
+      const usuarios = getUsuarios();
+      if (usuarios.find(u => u.email === email)) { mostrarMsg('❌ E-mail já cadastrado.', 'erro'); return; }
+      usuarios.push({ nome, email, senha });
+      salvarUsuarios(usuarios);
+      localStorage.setItem('neuromax_logado', JSON.stringify({ nome, email }));
+      document.getElementById('formCadastro').style.display = 'none';
+      document.getElementById('painelSucesso').style.display = 'block';
+      document.getElementById('sucessoTitulo').textContent = 'CONTA CRIADA!';
+      document.getElementById('sucessoTexto').textContent = 'Bem-vindo(a), ' + nome.split(' ')[0] + '! Entrando na loja...';
+      setTimeout(irParaLoja, 1800);
+    }
+
+    function irParaLoja() { window.location.href = 'Loja.html'; }
+
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      const loginVisivel = document.getElementById('formLogin').style.display !== 'none';
+      if (loginVisivel) fazerLogin(); else fazerCadastro();
+    });
+  </script>
+
+</body>
+</html>
